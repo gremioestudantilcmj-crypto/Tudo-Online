@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tudo online</title>
+<style>
+  body { 
+    font-family: Arial, sans-serif; 
+    margin:0; 
+    background:#f0f6fa; 
+    color:#2c3e50; 
+  }
+
+  /* Header (logo centralizada) */
+  header {
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 2px 0;
+  }
+  .pequeno {
+    width: 70px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Menu de navegação */
+  nav { 
+    background:#2980b9; 
+    display:flex; 
+    justify-content:center; 
+  }
+  nav a { 
+    color:white; 
+    padding:10px 20px; 
+    text-decoration:none; 
+  }
+  nav a.ativo { background:#1f618d; }
+
+  /* Estrutura geral */
+  .secao { display:none; padding:20px; }
+  .secao.ativo { display:block; }
+
+  /* --- SEÇÃO INÍCIO --- */
+  #inicio {
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+                url('./img/banner.jpg') center/cover no-repeat;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    border-radius: 0 0 10px 10px;
+  }
+  #inicio h1 {
+    font-size: 40px;
+    margin-bottom: 10px;
+  }
+  #inicio p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  .botao-banner {
+    padding: 12px 25px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .botao-banner:hover { background: #1f618d; }
+
+  /* Produtos */
+  .produtos { 
+    display:grid; 
+    grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); 
+    gap:20px; 
+  }
+  .produto { 
+    background:white; 
+    padding:15px; 
+    border-radius:8px; 
+    box-shadow:0 2px 5px rgba(0,0,0,0.1); 
+    text-align:center; 
+  }
+  .produto img { 
+    max-width:100%; 
+    height:auto; 
+    border-radius:8px; 
+  }
+  .botao-comprar { 
+    margin-top:10px; 
+    padding:8px 15px; 
+    background:#3498db; 
+    color:white; 
+    border:none; 
+    cursor:pointer; 
+    border-radius:5px; 
+  }
+  .botao-comprar:hover { background:#2c80b4; }
+
+  /* Avaliações e comentários */
+  .avaliacoes { margin-top:10px; }
+  .estrela { font-size:20px; cursor:pointer; color:#ccc; }
+  .estrela.ativa { color:gold; }
+  .comentarios { margin-top:10px; text-align:left; font-size:14px; }
+  .comentarios p { background:#ecf0f1; padding:5px; border-radius:5px; margin:5px 0; }
+  .comentario-form { margin-top:10px; display:flex; gap:5px; }
+  .comentario-form input { flex:1; padding:5px; border:1px solid #ccc; border-radius:5px; }
+  .comentario-form button { padding:5px 10px; border:none; background:#2980b9; color:white; border-radius:5px; cursor:pointer; }
+  .comentario-form button:hover { background:#1f618d; }
+
+  /* Carrinho */
+  #carrinho ul { list-style:none; padding:0; }
+  #carrinho li { background:#fff; padding:8px; margin:5px 0; border-radius:5px; display:flex; justify-content:space-between; }
+
+  /* Pagamento */
+  #form-pagamento { 
+    max-width: 400px; 
+    margin:auto; 
+    background:white; 
+    padding:20px; 
+    border-radius:8px; 
+    box-shadow:0 2px 5px rgba(0,0,0,0.1); 
+  }
+  #form-pagamento .campo { display:flex; flex-direction:column; margin-bottom:15px; }
+  #form-pagamento label { margin-bottom:5px; font-weight:bold; }
+  #form-pagamento input, #form-pagamento select { padding:8px; border:1px solid #ccc; border-radius:5px; }
+  .btn-finalizar { 
+    width:100%; 
+    padding:10px; 
+    background:#3498db; 
+    color:white; 
+    border:none; 
+    border-radius:5px; 
+    font-size:16px; 
+    cursor:pointer; 
+  }
+  .btn-finalizar:hover { background:#2c80b4; }
+
+  footer { 
+    text-align:center; 
+    padding:15px; 
+    background:#3498db; 
+    color:white; 
+    margin-top:20px; 
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="./img/logo (2).png" alt="logo" class="pequeno">
+</header>
+
+<nav>
+  <a class="ativo" href="#" data-secao="inicio">Início</a>
+  <a href="#" data-secao="produtos">Produtos</a>
+  <a href="#" data-secao="carrinho">Carrinho</a>
+  <a href="#" data-secao="pagamento">Pagamento</a>
+  <a href="#" data-secao="historico">Histórico</a>
+</nav>
+
+<!-- SEÇÃO INÍCIO -->
+<section id="inicio" class="secao ativo">
+  <h1>Bem-vindo à Tudo online!</h1>
+  <p>Os melhores produtos com os melhores preços, na sua loja online favorita.</p>
+  <button class="botao-banner" onclick="
+    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('ativo'));
+    document.querySelector('nav a[data-secao=produtos]').classList.add('ativo');
+    document.querySelectorAll('.secao').forEach(s=>s.classList.remove('ativo'));
+    document.getElementById('produtos').classList.add('ativo');
+  ">
+    Ver Produtos
+  </button>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos" class="secao">
+  <div class="produtos">
+
+    <div class="produto">
+      <h3>Camiseta Masculina</h3>
+      <img src="./img/camisa.png" alt="Camiseta Masculina">
+      <p>R$ 60,00</p>
+      <button class="botao-comprar" data-produto="Camiseta Masculina" data-preco="60">Adicionar ao Carrinho</button>
+      <div class="avaliacoes">
+        <div class="estrelas">
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+        </div>
+        <div class="comentarios"></div>
+        <div class="comentario-form"><input type="text" placeholder="Deixe seu comentário"><button>Enviar</button></div>
+      </div>
+    </div>
+
+    <div class="produto">
+      <h3>Tênis Masculino</h3>
+      <img src="./img/tênis masculino.png" alt="Tênis Masculino">
+      <p>R$ 100,00</p>
+      <button class="botao-comprar" data-produto="Tênis Masculino" data-preco="100">Adicionar ao Carrinho</button>
+      <div class="avaliacoes">
+        <div class="estrelas">
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+        </div>
+        <div class="comentarios"></div>
+        <div class="comentario-form"><input type="text" placeholder="Deixe seu comentário"><button>Enviar</button></div>
+      </div>
+    </div>
+
+    <div class="produto">
+      <h3>Chuteira</h3>
+      <img src="./img/chuteira.png" alt="Chuteira">
+      <p>R$ 150,00</p>
+      <button class="botao-comprar" data-produto="Chuteira" data-preco="150">Adicionar ao Carrinho</button>
+      <div class="avaliacoes">
+        <div class="estrelas">
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+        </div>
+        <div class="comentarios"></div>
+        <div class="comentario-form"><input type="text" placeholder="Deixe seu comentário"><button>Enviar</button></div>
+      </div>
+    </div>
+
+    <div class="produto">
+      <h3>Calça Jeans</h3>
+      <img src="./img/calça jeans.png" alt="Calça Jeans">
+      <p>R$ 120,00</p>
+      <button class="botao-comprar" data-produto="Calça Jeans" data-preco="120">Adicionar ao Carrinho</button>
+      <div class="avaliacoes">
+        <div class="estrelas">
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+        </div>
+        <div class="comentarios"></div>
+        <div class="comentario-form"><input type="text" placeholder="Deixe seu comentário"><button>Enviar</button></div>
+      </div>
+    </div>
+
+    <div class="produto">
+      <h3>Fone de Ouvido</h3>
+      <img src="./img/Fone de ouvido.png" alt="Fone de Ouvido">
+      <p>R$ 80,00</p>
+      <button class="botao-comprar" data-produto="Fone de Ouvido" data-preco="80">Adicionar ao Carrinho</button>
+      <div class="avaliacoes">
+        <div class="estrelas">
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+          <span class="estrela">&#9733;</span><span class="estrela">&#9733;</span><span class="estrela">&#9733;</span>
+        </div>
+        <div class="comentarios"></div>
+        <div class="comentario-form"><input type="text" placeholder="Deixe seu comentário"><button>Enviar</button></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="carrinho" class="secao">
+  <h2>Carrinho de Compras</h2>
+  <ul id="lista-carrinho"></ul>
+  <p>Total: R$ <span id="total-carrinho">0.00</span></p>
+  <button id="finalizar-compra">Ir para Pagamento</button>
+</section>
+
+<section id="pagamento" class="secao">
+  <h2>Pagamento</h2>
+  <form id="form-pagamento">
+    <div class="campo"><label>Nome:</label><input type="text" required></div>
+    <div class="campo"><label>Email:</label><input type="email" required></div>
+    <div class="campo"><label>Endereço:</label><input type="text" required></div>
+    <div class="campo">
+      <label>Forma de Pagamento:</label>
+      <select id="metodo-pagamento" required>
+        <option value="">Selecione</option>
+        <option value="cartao">Cartão de Crédito</option>
+        <option value="pix">PIX</option>
+      </select>
+    </div>
+    <div id="campo-cartao" class="campo">
+      <label>Número do Cartão:</label>
+      <input type="text" placeholder="Número do cartão">
+    </div>
+    <div id="campo-pix" class="campo" style="display:none;">
+      <p>Após finalizar a compra, será gerado um QR Code PIX para pagamento.</p>
+    </div>
+    <button type="submit" class="btn-finalizar">Finalizar Compra</button>
+  </form>
+  <div id="mensagem-sucesso" style="display:none; margin-top:15px; color:green;"></div>
+</section>
+
+<section id="historico" class="secao">
+  <h2>Histórico de Compras</h2>
+  <div id="lista-historico"></div>
+</section>
+
+<script>
+  // === Navegação ===
+  document.querySelectorAll("nav a").forEach(link=>{
+    link.addEventListener("click", e=>{
+      e.preventDefault();
+      document.querySelectorAll("nav a").forEach(a=>a.classList.remove("ativo"));
+      link.classList.add("ativo");
+      document.querySelectorAll(".secao").forEach(sec=>sec.classList.remove("ativo"));
+      document.getElementById(link.dataset.secao).classList.add("ativo");
+    });
+  });
+
+  // === Carrinho ===
+  let carrinho=[];
+  function atualizarCarrinho(){
+    const lista=document.getElementById("lista-carrinho");
+    lista.innerHTML="";
+    let total=0;
+    carrinho.forEach((item,i)=>{
+      let li=document.createElement("li");
+      li.textContent=`${item.nome} - R$ ${item.preco.toFixed(2)}`;
+      let btn=document.createElement("button");
+      btn.textContent="Remover";
+      btn.style.marginLeft="10px";
+      btn.onclick=()=>{ carrinho.splice(i,1); atualizarCarrinho(); };
+      li.appendChild(btn);
+      lista.appendChild(li);
+      total+=item.preco;
+    });
+    document.getElementById("total-carrinho").textContent=total.toFixed(2);
+  }
+
+  document.querySelectorAll(".botao-comprar").forEach(botao=>{
+    botao.addEventListener("click", ()=>{
+      carrinho.push({nome:botao.dataset.produto, preco:parseFloat(botao.dataset.preco)});
+      atualizarCarrinho();
+      alert("Produto adicionado ao carrinho!");
+    });
+  });
+
+  // === Comentários ===
+  document.querySelectorAll(".comentario-form button").forEach(botao=>{
+    botao.addEventListener("click", ()=>{
+      const input=botao.previousElementSibling;
+      const texto=input.value.trim();
+      if(texto!==""){
+        const comentarios=botao.closest(".avaliacoes").querySelector(".comentarios");
+        let p=document.createElement("p");
+        p.textContent=texto;
+        comentarios.appendChild(p);
+        input.value="";
+      }
+    });
+  });
+
+  // === Estrelas ===
+  document.querySelectorAll(".estrelas").forEach(div=>{
+    div.querySelectorAll(".estrela").forEach((estrela,i,arr)=>{
+      estrela.addEventListener("click", ()=>arr.forEach((s,j)=>s.classList.toggle("ativa", j<=i)));
+    });
+  });
+
+  // === Pagamento ===
+  document.getElementById("metodo-pagamento").addEventListener("change", e=>{
+    document.getElementById("campo-cartao").style.display=e.target.value==="cartao"?"block":"none";
+    document.getElementById("campo-pix").style.display=e.target.value==="pix"?"block":"none";
+  });
+
+  document.getElementById("form-pagamento").addEventListener("submit", e=>{
+    e.preventDefault();
+    document.getElementById("mensagem-sucesso").style.display="block";
+    document.getElementById("mensagem-sucesso").textContent="Compra realizada com sucesso!";
+    let historico=document.getElementById("lista-historico");
+    let data=new Date().toLocaleString();
+    let div=document.createElement("div");
+    div.textContent=`${data} - Compra de ${carrinho.length} itens - Total: R$ ${document.getElementById("total-carrinho").textContent}`;
+    historico.appendChild(div);
+    carrinho=[];
+    atualizarCarrinho();
+  });
+
+  document.getElementById("finalizar-compra").addEventListener("click", ()=>{
+    document.querySelectorAll("nav a").forEach(a=>a.classList.remove("ativo"));
+    document.querySelector("nav a[data-secao='pagamento']").classList.add("ativo");
+    document.querySelectorAll(".secao").forEach(sec=>sec.classList.remove("ativo"));
+    document.getElementById("pagamento").classList.add("ativo");
+  });
+</script>
+
+
+</body>
+</html>
